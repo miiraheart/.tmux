@@ -397,6 +397,9 @@ bind -N "Paste buffer" ] paste-buffer
 
 # -- Development & Productivity --
 
+# Floating terminal popup (replaces floax plugin) - same binding as original
+bind -N "Floating terminal" p display-popup -w 80% -h 80% -E -d "#{pane_current_path}" -b rounded
+
 # Lazygit popup
 bind -N "Open lazygit" g display-popup -w 80% -h 80% -E -d "#{pane_current_path}" "lazygit"
 
@@ -406,8 +409,8 @@ bind -N "File manager" F display-popup -w 80% -h 80% -E -d "#{pane_current_path}
 # System monitor
 bind -N "System monitor" h split-window -h -l 30% "btop"
 
-# Python REPL
-bind -N "Python REPL" p display-popup -E "ipython --no-banner 2>/dev/null || python3"
+# Python REPL (moved to C-p to avoid conflict with floating terminal)
+bind -N "Python REPL" C-p display-popup -E "ipython --no-banner 2>/dev/null || python3"
 
 # Quick notes
 bind -N "Quick notes" n display-popup -w 80% -h 80% -E "nvim ~/notes/scratch.md"
