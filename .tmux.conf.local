@@ -419,8 +419,62 @@ bind -N "Quick notes" n display-popup -w 80% -h 80% -E "nvim ~/notes/scratch.md"
 
 bind -N "Display pane numbers" q display-panes
 bind -N "Kill server" Q kill-server
-bind -N "Show keybindings" ? list-keys
+bind -N "Show all keybindings" ? list-keys
 bind -N "Show info" i display-message "Pane: #P | Window: #I:#W | Session: #S"
+
+# -- Help Menu (replaces tmux-which-key) --
+# Press F1 for quick reference (no prefix needed), prefix + ? for full list
+
+bind -N "Help menu" -n F1 display-menu -T "#[align=centre]Keybindings" \
+    "" \
+    "-#[nodim]━━ Sessions ━━" "" "" \
+    "List sessions          (s)" s "choose-tree -Zs" \
+    "New session            (S)" S "command-prompt -p 'New session:' 'new-session -s \"%%\"'" \
+    "Kill session           (D)" D "kill-session" \
+    "Detach                 (d)" d "detach-client" \
+    "" \
+    "-#[nodim]━━ Windows ━━" "" "" \
+    "New window             (c)" c "new-window -c '#{pane_current_path}'" \
+    "List windows           (w)" w "choose-window" \
+    "Kill window            (X)" X "kill-window" \
+    "Last window            (a)" a "last-window" \
+    "Rename window          (A)" A "command-prompt -p 'Rename:' 'rename-window \"%%\"'" \
+    "Move left              (<)" "<" "swap-window -t -1; previous-window" \
+    "Move right             (>)" ">" "swap-window -t +1; next-window" \
+    "" \
+    "-#[nodim]━━ Panes ━━" "" "" \
+    "Split vertical         (|)" "|" "split-window -h -c '#{pane_current_path}'" \
+    "Split horizontal       (-)" "-" "split-window -v -c '#{pane_current_path}'" \
+    "Kill pane              (x)" x "kill-pane" \
+    "Zoom toggle            (z)" z "resize-pane -Z" \
+    "Break to window        (b)" b "break-pane" \
+    "Mark pane              (m)" m "select-pane -m" \
+    "Swap marked            (M)" M "swap-pane" \
+    "" \
+    "-#[nodim]━━ Resize ━━" "" "" \
+    "Resize left            (H)" H "resize-pane -L 5" \
+    "Resize down            (J)" J "resize-pane -D 5" \
+    "Resize up              (K)" K "resize-pane -U 5" \
+    "Resize right           (L)" L "resize-pane -R 5" \
+    "" \
+    "-#[nodim]━━ Copy Mode ━━" "" "" \
+    "Enter copy mode        (v)" v "copy-mode" \
+    "Paste buffer           (])" "]" "paste-buffer" \
+    "Search backward        (/)" "/" "copy-mode; send ?" \
+    "Search URLs          (C-u)" C-u "copy-mode; send -X search-backward '(https?://|git@)[[:alnum:]?=%/_.:,;~@!#$&()*+-]*'" \
+    "" \
+    "-#[nodim]━━ Tools ━━" "" "" \
+    "Floating terminal      (p)" p "display-popup -w 80% -h 80% -E -d '#{pane_current_path}'" \
+    "Lazygit                (g)" g "display-popup -w 80% -h 80% -E -d '#{pane_current_path}' lazygit" \
+    "File manager           (F)" F "display-popup -w 80% -h 80% -E -d '#{pane_current_path}' yazi" \
+    "System monitor         (h)" h "split-window -h -l 30% btop" \
+    "Quick notes            (n)" n "display-popup -w 80% -h 80% -E 'nvim ~/notes/scratch.md'" \
+    "" \
+    "-#[nodim]━━ Other ━━" "" "" \
+    "Reload config          (r)" r "source-file ~/.tmux.conf.local; display 'Reloaded!'" \
+    "Sync panes           (C-s)" C-s "setw synchronize-panes" \
+    "Toggle mouse           (m)" m "run \"cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse\"" \
+    "All keybindings        (?)" ? "list-keys"
 
 # -- Advanced Features --
 
